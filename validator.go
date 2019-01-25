@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/csv"
-	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -61,30 +60,14 @@ func (um *UserMap) LoadAuthenticatedEmailsFile() {
 
 func newValidatorImpl(domains []string, usersFile string,
 	done <-chan bool, onUpdate func()) func(string) bool {
-	validUsers := NewUserMap(usersFile, done, onUpdate)
-
-	var allowAll bool
-	for i, domain := range domains {
-		if domain == "*" {
-			allowAll = true
-			continue
-		}
-		domains[i] = fmt.Sprintf("@%s", strings.ToLower(domain))
-	}
-
+//	validUsers := NewUserMap(usersFile, done, onUpdate)
 	validator := func(email string) (valid bool) {
-		if email == "" {
-			return
-		}
-		email = strings.ToLower(email)
+		valid = false
 		for _, domain := range domains {
-			valid = valid || strings.HasSuffix(email, domain)
-		}
-		if !valid {
-			valid = validUsers.IsValid(email)
-		}
-		if allowAll {
-			valid = true
+//   		        log.PrintF("checking email: %s agains %s", email, domain)
+			if domain == email {
+				valid = true
+			}
 		}
 		return valid
 	}

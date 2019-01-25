@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 	"runtime"
-	"strings"
 	"time"
 
 	"github.com/BurntSushi/toml"
@@ -110,9 +109,9 @@ func main() {
 
 	if len(opts.EmailDomains) != 0 && opts.AuthenticatedEmailsFile == "" {
 		if len(opts.EmailDomains) > 1 {
-			oauthproxy.SignInMessage = fmt.Sprintf("Authenticate using one of the following domains: %v", strings.Join(opts.EmailDomains, ", "))
+			oauthproxy.SignInMessage = fmt.Sprintf("")
 		} else if opts.EmailDomains[0] != "*" {
-			oauthproxy.SignInMessage = fmt.Sprintf("Authenticate using %v", opts.EmailDomains[0])
+			oauthproxy.SignInMessage = fmt.Sprintf("Authenticate using LinkedIn", opts.EmailDomains[0])
 		}
 	}
 

@@ -51,7 +51,7 @@ func (p *LinkedInProvider) GetEmailAddress(s *SessionState) (string, error) {
 	if s.AccessToken == "" {
 		return "", errors.New("missing access token")
 	}
-	req, err := http.NewRequest("GET", p.ProfileURL.String()+"?format=json", nil)
+	req, err := http.NewRequest("GET", "https://linkedin.com/v1/people/~/public-profile-url?format=json", nil);
 	if err != nil {
 		return "", err
 	}
